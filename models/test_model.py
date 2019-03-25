@@ -14,7 +14,8 @@ class TestModel(BaseModel):
 
         Parameters:
             parser          -- original option parser
-            is_train (bool) -- whether training phase or test phase. You can use this flag to add training-specific or test-specific options.
+            is_train (bool) -- whether training phase or test phase. 
+                                You can use this flag to add training-specific or test-specific options.
 
         Returns:
             the modified parser.
@@ -24,7 +25,8 @@ class TestModel(BaseModel):
         """
         assert not is_train, 'TestModel cannot be used during training time'
         parser.set_defaults(dataset_mode='single')
-        parser.add_argument('--model_suffix', type=str, default='', help='In checkpoints_dir, [epoch]_net_G[model_suffix].pth will be loaded as the generator.')
+        parser.add_argument('--model_suffix', type=str, default='', \
+            help='In checkpoints_dir, [epoch]_net_G[model_suffix].pth will be loaded as the generator.')
 
         return parser
 
@@ -40,7 +42,8 @@ class TestModel(BaseModel):
         self.loss_names = []
         # specify the images you want to save/display. The training/test scripts  will call <BaseModel.get_current_visuals>
         self.visual_names = ['real_A', 'fake_B']
-        # specify the models you want to save to the disk. The training/test scripts will call <BaseModel.save_networks> and <BaseModel.load_networks>
+        # specify the models you want to save to the disk. The training/test scripts \
+        # will call <BaseModel.save_networks> and <BaseModel.load_networks>
         self.model_names = ['G' + opt.model_suffix]  # only generator is needed.
         self.netG = networks.define_G(opt.input_nc, opt.output_nc, opt.ngf, opt.netG,
                                       opt.norm, not opt.no_dropout, opt.init_type, opt.init_gain, self.gpu_ids)
