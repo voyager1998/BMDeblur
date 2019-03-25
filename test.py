@@ -65,11 +65,11 @@ if __name__ == '__main__':
         model.set_input(data)  # unpack data from data loader
         model.test()           # run inference
         visuals = model.get_current_visuals()  # get image results
-        avgPSNR += metrics.PSNR(visuals['fake_B'], visuals['real_B'])
+        avgPSNR += metrics.cal_PSNR(visuals['fake_B'], visuals['real_B'])
         img_path = model.get_image_paths()     # get image paths
         if i % 5 == 0:  # save images to an HTML file
             print('processing (%04d)-th image... %s' % (i, img_path))
         save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize)
-    avgPSNR = avgPSNR / counter
+    avgPSNR = avgPSNR / (counter + 1)
     print("Average PSNR = ", avgPSNR)
     webpage.save()  # save the HTML
