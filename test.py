@@ -32,7 +32,7 @@ from data import create_dataset
 from models import create_model
 from util.visualizer import save_images
 from util import html
-
+from util import metrics
 
 if __name__ == '__main__':
     opt = TestOptions().parse()  # get test options
@@ -56,7 +56,7 @@ if __name__ == '__main__':
         model.eval()
 
     counter = 0
-    PSNR = 0.0
+    avgPSNR = 0.0
     
     for i, data in enumerate(dataset):
         if i >= opt.num_test:  # only apply our model to opt.num_test images.
@@ -65,11 +65,11 @@ if __name__ == '__main__':
         model.set_input(data)  # unpack data from data loader
         model.test()           # run inference
         visuals = model.get_current_visuals()  # get image results
-        PSNR += PSNR(visuals['fake_B'], visuals['real_B'])
+        avgPSNR += metrics.PSNR(visuals['fake_B'], visuals['real_B'])
         img_path = model.get_image_paths()     # get image paths
         if i % 5 == 0:  # save images to an HTML file
             print('processing (%04d)-th image... %s' % (i, img_path))
         save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize)
-    avgPSNR = PSNR / counter
+    avgPSNR = avgPSNR / counter
     print("Average PSNR = ", avgPSNR)
     webpage.save()  # save the HTML
