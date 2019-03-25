@@ -10,6 +10,12 @@ def cal_PSNR(img1, img2):
     img2 = img2.numpy()
     img2 = img2.astype(float)
     
+    # Validate R = 2:
+    # print("MAX = ",np.amax(img1))
+    # print("MIN = ",np.amin(img1))
+    # print("MAX = ",np.amax(img2))
+    # print("MIN = ",np.amin(img2))
+
     # img1 = np.mean(img1, axis=(0, 1))
     # img2 = np.mean(img2, axis=(0, 1))    
     # print("image size: ",img1.shape)
