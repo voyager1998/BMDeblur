@@ -17,9 +17,10 @@ if __name__ == '__main__':
     opt.no_flip = True    # no flip; comment this line if results on flipped images are needed.
     opt.display_id = -1   # no visdom display; the test code saves the results to a HTML file.
     dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options
-
-    step = 100
-    final_epoch = 200
+    
+# change step and final epoch
+    step = 5
+    final_epoch = 30
     all_epochs = []
     all_PSNR = []
     
@@ -52,9 +53,11 @@ if __name__ == '__main__':
     
     # Plot PSNR vs epoch
     plt.plot(all_epochs, all_PSNR, 'r-')
-    plt.axis([0, final_epoch + step, 15, 30])
+    # plt.axis([0, final_epoch + step, 15, 30])
     plt.savefig('results/PSNR_vs_epoch.png')
 
-    all_PSNR = np.array(all_epochs)
-    print("Epoch with highest validation PSNR: ", np.argmax(all_epochs) * step)
+    all_PSNR = np.array(all_PSNR)
+    print("Epoch with highest validation PSNR: ", (np.argmax(all_PSNR) + 1) * step,\
+            ", its PSNR = ", all_PSNR[np.argmax(all_PSNR)] )
+
     

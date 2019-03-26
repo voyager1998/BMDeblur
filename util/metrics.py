@@ -4,9 +4,11 @@ import math
 import torch
 
 def cal_PSNR(img1, img2):
+    img1 = img1.cpu()   # delete this line if using cpu
     img1 = img1.numpy()
     img1 = img1.astype(float)
     
+    img2 = img2.cpu()   # delete this line if using cpu
     img2 = img2.numpy()
     img2 = img2.astype(float)
     
