@@ -19,12 +19,13 @@ if __name__ == '__main__':
     dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options
     
 # change step and final epoch
+    begin = 1
     step = 1
-    final_epoch = 30
+    final_epoch = 100
     all_epochs = []
     all_PSNR = []
     
-    for n_epoch in range(step, final_epoch + 1, step):
+    for n_epoch in range(begin, final_epoch + 1, step):
         opt.epoch = n_epoch
         model = create_model(opt)      # create a model given opt.model and other options
         model.setup(opt)  # regular setup: load and print networks; create schedulers
