@@ -79,6 +79,7 @@ class BlurImage(object):
         self.result = result
         if show or save:
             self.__plot_canvas(show, save)
+        return self.result
 
     def __plot_canvas(self, show, save):
         if len(self.result) == 0:
