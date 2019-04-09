@@ -15,11 +15,11 @@ def down(path, sub):
             imResize.save(f + '.png', 'png')
 
 subdir = ["test/", "train/", "val/"]
-path = "~/Downloads/442_proj/pytorch-CycleGAN-and-pix2pix/datasets/GOPRO_for_comb/A/"
+path = "/home/kunhuang/Downloads/442_proj/pytorch-CycleGAN-and-pix2pix/datasets/GOPRO_for_comb/A/"
 for sub in subdir:
     down(path, sub)
 
-path = "~/Downloads/442_proj/pytorch-CycleGAN-and-pix2pix/datasets/GOPRO_for_comb/B/"
+path = "/home/kunhuang/Downloads/442_proj/pytorch-CycleGAN-and-pix2pix/datasets/GOPRO_for_comb/B/"
 for sub in subdir:
     dirs = os.listdir(path + sub)
     down(path, sub)
