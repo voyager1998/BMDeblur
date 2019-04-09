@@ -1,5 +1,5 @@
 #!/bin/bash
-for file in *.JPG
+for file in *.png
 do
-    mv "$file" "${file%.JPG}_gamma.JPG"
+    mv "$file" "${file%.png}_gamma.png"
 done
