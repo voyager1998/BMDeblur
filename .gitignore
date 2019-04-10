@@ -3,6 +3,7 @@ debug*
 checkpoints/
 results/
 build/
+datasets/
 *.jpg
 dist/
 *.png
