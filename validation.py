@@ -19,9 +19,9 @@ if __name__ == '__main__':
     dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options
     
 # change step and final epoch
-    begin = 1
-    step = 1
-    final_epoch = 100
+    begin = 3
+    step = 3
+    final_epoch = 300
     all_epochs = []
     all_PSNR = []
     
