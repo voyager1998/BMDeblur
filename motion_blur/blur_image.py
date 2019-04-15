@@ -6,7 +6,8 @@ from scipy import signal
 from scipy import misc
 from generate_PSF import PSF
 from generate_trajectory import Trajectory
-
+import imageio
+from shutil import copyfile
 
 class BlurImage(object):
 
@@ -20,12 +21,12 @@ class BlurImage(object):
         """
         if os.path.isfile(image_path):
             self.image_path = image_path
-            self.original = misc.imread(self.image_path)
+            self.original = imageio.imread(self.image_path)
             self.shape = self.original.shape
             if len(self.shape) < 3:
                 raise Exception('We support only RGB images yet.')
-            elif self.shape[0] != self.shape[1]:
-                raise Exception('We support only square images yet.')
+            #elif self.shape[0] != self.shape[1]:
+            #    raise Exception('We support only square images yet.')
         else:
             raise Exception('Not correct path to image.')
         self.path_to_save = path__to_save
@@ -108,15 +109,25 @@ class BlurImage(object):
 
 
 if __name__ == '__main__':
-    folder = 'raw_images'
-    folder_to_save = 'blurred_images'
+    folder = '/Users/Regina8023/Downloads/val2017'
+    folder2 = 'coco_2017val/train'
+    folder_to_save = 'coco_blurred/train'
+    num_img = 2000
     params = [0.01, 0.009, 0.008, 0.007, 0.005, 0.003]
     for path in os.listdir(folder):
         if path.startswith('.'):
             continue
         print(path)
+        img = imageio.imread(os.path.join(folder, path))
+        shape = img.shape
+        if (len(shape) < 3):
+            continue
+        copyfile(os.path.join(folder, path), os.path.join(folder2, path))
         trajectory = Trajectory(canvas=64, max_len=60, expl=np.random.choice(params)).fit()
         psf = PSF(canvas=64, trajectory=trajectory).fit()
         BlurImage(os.path.join(folder, path), PSFs=psf,
                   path__to_save=folder_to_save, part=np.random.choice([1, 2, 3])).\
             blur_image(save=True)
+        num_img -= 1
+        if (num_img == 0):
+            break

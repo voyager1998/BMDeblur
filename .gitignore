@@ -1,9 +1,10 @@
 .DS_Store
 debug*
-datasets/
 checkpoints/
 results/
 build/
+datasets/
+*.jpg
 dist/
 *.png
 torch.egg-info/
