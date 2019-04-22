@@ -33,6 +33,36 @@ def cal_PSNR(img1, img2):
 
     # print("MSE size = ",mse.shape)
     if mse != 0:
-        R = 2   #TODO: what is R exactly? Look into the format of visuals = model.get_current_visuals()
+        R = 2.0   #TODO: what is R exactly? Look into the format of visuals = model.get_current_visuals()
+        result = 20 * math.log10(R / math.sqrt(mse))
+    return result
+
+
+def normalized_PSNR(img1, img2):
+    img1 = img1.cpu()   # delete this line if using cpu
+    img1 = img1.numpy()
+    img1 = img1.astype(float)
+    
+    img2 = img2.cpu()   # delete this line if using cpu
+    img2 = img2.numpy()
+    img2 = img2.astype(float)
+
+    m1 = np.mean(img1)
+    m2 = np.mean(img2)
+
+    var1 = np.std(img1)
+    var2 = np.std(img2)
+
+    img2 = img2 + m1 - m2
+    img2 = m1 + (img2 - m1) * var1 / var2
+
+    result = 100
+
+    mse = np.mean((img1  - img2 ) ** 2)
+    # print("MSE, my_MSE = ", mse,my_mse)
+
+    # print("MSE size = ",mse.shape)
+    if mse != 0:
+        R = 2.0   #TODO: what is R exactly? Look into the format of visuals = model.get_current_visuals()
         result = 20 * math.log10(R / math.sqrt(mse))
     return result

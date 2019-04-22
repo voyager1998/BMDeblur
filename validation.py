@@ -46,7 +46,8 @@ if __name__ == '__main__':
             model.set_input(data)  # unpack data from data loader
             model.test()           # run inference
             visuals = model.get_current_visuals()  # get image results
-            avgPSNR += metrics.cal_PSNR(visuals['fake_B'], visuals['real_B'])
+            # avgPSNR += metrics.cal_PSNR(visuals['fake_B'], visuals['real_B'])
+            avgPSNR += metrics.normalized_PSNR(visuals['fake_B'], visuals['real_B'])
         avgPSNR = avgPSNR / (counter + 1)
         print("Epoch ", n_epoch, "  Average PSNR = ", avgPSNR)
         all_epochs += [n_epoch]
