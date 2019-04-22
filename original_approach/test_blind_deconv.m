@@ -43,10 +43,10 @@ switch dataSource
       %  opts.medFilter = true; % remove lyndsey's salt-pepper noise
       %  opts.kernel_est_win = [135 55 1170 812]; % for lyndsey, to speed up computation
 
-%       opts.xk_iter = 30;     % x-k iterations in initial multiscale stages
-%       opts.final_scale_xk_iter = 60; % x-k iterations in final stage
-      opts.xk_iter = 1;     % x-k iterations in initial multiscale stages
-      opts.final_scale_xk_iter = 2; % x-k iterations in final stage  
+      opts.xk_iter = 30;     % x-k iterations in initial multiscale stages
+      opts.final_scale_xk_iter = 60; % x-k iterations in final stage
+%       opts.xk_iter = 1;     % x-k iterations in initial multiscale stages
+%       opts.final_scale_xk_iter = 2; % x-k iterations in final stage  
       opts.burnIn = 10;      % x-k iterations in initial stage
       opts.stageInd = 5;     % iterations per increase in sparsity
       opts.pa_target = 1;    % pred/actual L1/L2 target
@@ -59,7 +59,7 @@ switch dataSource
       
       Files = dir('./data/')
       [l l2] = size(Files)
-      for i = 1:l1
+      for i = 1:l
           disp(Files(i).name)
           if isempty(strfind(Files(i).name, '.png'))
               continue
@@ -83,7 +83,7 @@ switch dataSource
 %           linkaxes(ax);
 %           figure(27);
 %           imagesc(kEst);
-          imwrite(deblur, Files(i).name, 'png');
+          imwrite(deblur, strcat('./deblurred_test/',Files(i).name), 'png');
       end
       
    case 'levin_benchmark'
